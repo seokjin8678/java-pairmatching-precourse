@@ -2,6 +2,7 @@ package pairmatching.view;
 
 import pairmatching.controller.Select;
 import pairmatching.dto.CourseLevelMissionDto;
+import pairmatching.dto.PairResultDto;
 
 public class PairMatchingView {
     private final InputView inputView;
@@ -31,6 +32,12 @@ public class PairMatchingView {
             } catch (IllegalArgumentException e) {
                 outputView.printException(e);
             }
+        }
+    }
+
+    public void printPairResult(PairResultDto pairResultDto) {
+        for (String pairName : pairResultDto.getPairNames()) {
+            outputView.printPairName(pairName);
         }
     }
 }

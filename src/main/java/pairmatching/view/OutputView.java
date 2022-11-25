@@ -27,4 +27,8 @@ public class OutputView {
     public void printException(IllegalArgumentException e) {
         System.out.println(e.getMessage());
     }
+
+    public void printPairName(String pairName) {
+        System.out.println(pairName);
+    }
 }
