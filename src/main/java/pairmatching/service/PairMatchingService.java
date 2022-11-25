@@ -79,4 +79,8 @@ public class PairMatchingService {
         pairRepository.saveAll(pairs);
         return pairs;
     }
+
+    public void clearAllPairs() {
+        pairRepository.deleteAll();
+    }
 }

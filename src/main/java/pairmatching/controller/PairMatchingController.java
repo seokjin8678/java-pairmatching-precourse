@@ -35,6 +35,8 @@ public class PairMatchingController {
             }
             if (select == Select.RESET) {
                 // 초기화 기능 수행
+                pairMatchingService.clearAllPairs();
+                pairMatchingView.printClearMessage();
             }
             if (select == Select.QUIT) {
                 return;

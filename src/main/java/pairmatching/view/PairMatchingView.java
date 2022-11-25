@@ -40,4 +40,8 @@ public class PairMatchingView {
             outputView.printPairName(pairName);
         }
     }
+
+    public void printClearMessage() {
+        outputView.printClearMessage();
+    }
 }

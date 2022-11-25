@@ -31,4 +31,10 @@ public class OutputView {
     public void printPairName(String pairName) {
         System.out.println(pairName);
     }
+
+    public void printClearMessage() {
+        System.out.println();
+        System.out.println("초기화 되었습니다.");
+        System.out.println();
+    }
 }
