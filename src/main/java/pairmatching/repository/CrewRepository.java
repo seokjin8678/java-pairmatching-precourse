@@ -8,11 +8,11 @@ import pairmatching.domain.Crew;
 public class CrewRepository {
     private final Set<Crew> crews = new HashSet<>();
 
-    public void saveAllCrews(Collection<Crew> crews) {
+    public void saveAll(Collection<Crew> crews) {
         this.crews.addAll(crews);
     }
 
-    public Set<Crew> findAllCrews() {
+    public Set<Crew> findAll() {
         return Set.copyOf(crews);
     }
 }

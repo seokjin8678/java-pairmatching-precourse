@@ -26,7 +26,7 @@ public class PairMatchingService {
             Set<Crew> crews = Files.list(Path.of("./src/main/resources"))
                     .flatMap(path -> retrieveCrewFile(path).stream())
                     .collect(Collectors.toSet());
-            crewRepository.saveAllCrews(crews);
+            crewRepository.saveAll(crews);
         } catch (IOException e) {
             e.printStackTrace();
         }
