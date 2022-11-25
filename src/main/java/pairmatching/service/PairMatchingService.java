@@ -87,4 +87,12 @@ public class PairMatchingService {
     public List<Pair> findPairByCourseAndMission(Course course, Mission mission) {
         return pairRepository.findByCourseAndMission(course, mission);
     }
+
+    public boolean isAlreadyMatch(Course course, Mission mission) {
+        return pairRepository.existsByCourseAndMission(course, mission);
+    }
+
+    public void deletePairByCourseAndMission(Course course, Mission mission) {
+        pairRepository.deleteByCourseAndMission(course, mission);
+    }
 }

@@ -2,6 +2,7 @@ package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import pairmatching.controller.Select;
+import pairmatching.controller.YesOrNo;
 import pairmatching.dto.CourseLevelMissionDto;
 
 public class InputView {
@@ -13,5 +14,10 @@ public class InputView {
     public CourseLevelMissionDto inputCourseLevelMission() {
         String input = Console.readLine();
         return CourseLevelMissionDto.of(input);
+    }
+
+    public YesOrNo inputYesOrNo() {
+        String input = Console.readLine();
+        return YesOrNo.of(input);
     }
 }

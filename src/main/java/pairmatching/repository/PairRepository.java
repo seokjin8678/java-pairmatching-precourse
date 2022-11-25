@@ -25,4 +25,13 @@ public class PairRepository {
                 .filter(pair -> pair.isMissionMatch(mission))
                 .collect(Collectors.toList());
     }
+
+    public boolean existsByCourseAndMission(Course course, Mission mission) {
+        return pairs.stream()
+                .anyMatch(pair -> pair.isCourseMatch(course) && pair.isMissionMatch(mission));
+    }
+
+    public void deleteByCourseAndMission(Course course, Mission mission) {
+        pairs.removeIf(pair -> pair.isCourseMatch(course) && pair.isMissionMatch(mission));
+    }
 }

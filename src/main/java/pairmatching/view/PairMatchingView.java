@@ -1,6 +1,7 @@
 package pairmatching.view;
 
 import pairmatching.controller.Select;
+import pairmatching.controller.YesOrNo;
 import pairmatching.dto.CourseLevelMissionDto;
 import pairmatching.dto.PairResultDto;
 
@@ -45,5 +46,16 @@ public class PairMatchingView {
 
     public void printClearMessage() {
         outputView.printClearMessage();
+    }
+
+    public YesOrNo receiveYesOrNo() {
+        while (true) {
+            try {
+                outputView.printAlreadyMatchMessage();
+                return inputView.inputYesOrNo();
+            } catch (IllegalArgumentException e) {
+                outputView.printException(e);
+            }
+        }
     }
 }
