@@ -15,6 +15,7 @@ public class PairMatchingController {
     }
 
     public void run() {
+        pairMatchingService.saveAllCrewsFromFile();
         while (true) {
             Select select = pairMatchingView.receiveSelect();
             if (select == Select.MATCHING) {
