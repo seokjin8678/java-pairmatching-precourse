@@ -30,8 +30,12 @@ public class PairMatchingController {
                 pairMatchingView.printPairResult(PairResultDto.of(pairs));
             }
             if (select == Select.INQUIRY) {
-                pairMatchingView.receiveCourseLevelMission();
+                CourseLevelMissionDto courseLevelMissionDto = pairMatchingView.receiveCourseLevelMission();
                 // 조회 기능 수행
+                List<Pair> pairs = pairMatchingService.findPairByCourseAndMission(
+                        courseLevelMissionDto.getCourse(),
+                        courseLevelMissionDto.getMission());
+                pairMatchingView.printPairResult(PairResultDto.of(pairs));
             }
             if (select == Select.RESET) {
                 // 초기화 기능 수행

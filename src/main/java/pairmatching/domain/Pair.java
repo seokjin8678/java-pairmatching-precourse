@@ -20,11 +20,11 @@ public class Pair {
                 .collect(Collectors.joining(" : "));
     }
 
-    public Course getCourse() {
-        return course;
+    public boolean isCourseMatch(Course course) {
+        return this.course == course;
     }
 
-    public Mission getMission() {
-        return mission;
+    public boolean isMissionMatch(Mission mission) {
+        return this.mission == mission;
     }
 }

@@ -83,4 +83,8 @@ public class PairMatchingService {
     public void clearAllPairs() {
         pairRepository.deleteAll();
     }
+
+    public List<Pair> findPairByCourseAndMission(Course course, Mission mission) {
+        return pairRepository.findByCourseAndMission(course, mission);
+    }
 }
