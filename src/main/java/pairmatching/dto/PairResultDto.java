@@ -21,4 +21,8 @@ public class PairResultDto {
     public List<String> getPairNames() {
         return pairNames;
     }
+
+    public boolean isEmpty() {
+        return pairNames.isEmpty();
+    }
 }

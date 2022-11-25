@@ -36,6 +36,10 @@ public class PairMatchingView {
     }
 
     public void printPairResult(PairResultDto pairResultDto) {
+        if (pairResultDto.isEmpty()) {
+            outputView.printNotFoundMatch();
+            return;
+        }
         outputView.printPairResult(pairResultDto);
     }
 

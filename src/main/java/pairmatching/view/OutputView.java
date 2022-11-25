@@ -39,6 +39,12 @@ public class OutputView {
         System.out.println();
     }
 
+    public void printNotFoundMatch() {
+        System.out.println();
+        System.out.println("[ERROR] 매칭 이력이 없습니다.");
+        System.out.println();
+    }
+
     public void printClearMessage() {
         System.out.println();
         System.out.println("초기화 되었습니다.");
