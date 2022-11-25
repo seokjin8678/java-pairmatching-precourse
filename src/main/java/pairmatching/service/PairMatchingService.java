@@ -62,10 +62,16 @@ public class PairMatchingService {
 
     public List<Pair> matchCrew(Course course, Mission mission) {
         Set<Crew> crews = crewRepository.findByCourse(course);
-        List<Pair> pairs = new ArrayList<>();
         List<String> crewNames = crews.stream()
                 .map(Crew::getName)
                 .collect(Collectors.toList());
+        List<Pair> pairs = makePairs(course, mission, crewNames);
+        pairRepository.saveAll(pairs);
+        return pairs;
+    }
+
+    private List<Pair> makePairs(Course course, Mission mission, List<String> crewNames) {
+        List<Pair> pairs = new ArrayList<>();
         Queue<String> shuffledCrewsName = new LinkedList<>(Randoms.shuffle(crewNames));
         while (shuffledCrewsName.size() > 0) {
             List<Crew> crewPair = new ArrayList<>();
@@ -76,7 +82,6 @@ public class PairMatchingService {
             }
             pairs.add(new Pair(course, mission, crewPair));
         }
-        pairRepository.saveAll(pairs);
         return pairs;
     }
 
