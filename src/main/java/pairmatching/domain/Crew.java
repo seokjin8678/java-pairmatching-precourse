@@ -11,6 +11,18 @@ public class Crew {
         this.name = name;
     }
 
+    public boolean isFrontEnd() {
+        return course == Course.FRONTEND;
+    }
+
+    public boolean isBackEnd() {
+        return course == Course.BACKEND;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
