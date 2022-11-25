@@ -25,11 +25,11 @@ public class PairMatchingController {
         loop();
     }
 
-    public void init() {
+    private void init() {
         pairMatchingService.saveAllCrewsFromFile();
     }
 
-    public void loop() {
+    private void loop() {
         while (true) {
             ExitFlag flag = routine();
             if (flag == ExitFlag.EXIT) {
