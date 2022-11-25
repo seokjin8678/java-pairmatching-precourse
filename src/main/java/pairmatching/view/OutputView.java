@@ -1,5 +1,7 @@
 package pairmatching.view;
 
+import pairmatching.dto.PairResultDto;
+
 public class OutputView {
 
     public void printSelectList() {
@@ -28,8 +30,13 @@ public class OutputView {
         System.out.println(e.getMessage());
     }
 
-    public void printPairName(String pairName) {
-        System.out.println(pairName);
+    public void printPairResult(PairResultDto pairResultDto) {
+        System.out.println();
+        System.out.println("페어 매칭 결과입니다.");
+        for (String pairName : pairResultDto.getPairNames()) {
+            System.out.println(pairName);
+        }
+        System.out.println();
     }
 
     public void printClearMessage() {

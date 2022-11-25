@@ -36,9 +36,7 @@ public class PairMatchingView {
     }
 
     public void printPairResult(PairResultDto pairResultDto) {
-        for (String pairName : pairResultDto.getPairNames()) {
-            outputView.printPairName(pairName);
-        }
+        outputView.printPairResult(pairResultDto);
     }
 
     public void printClearMessage() {
