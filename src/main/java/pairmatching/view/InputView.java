@@ -8,4 +8,8 @@ public class InputView {
         String input = Console.readLine();
         return Select.of(input);
     }
+
+    public String inputCourseLevelMission() {
+        return Console.readLine();
+    }
 }

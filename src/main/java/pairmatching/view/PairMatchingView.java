@@ -21,4 +21,9 @@ public class PairMatchingView {
             }
         }
     }
+
+    public String receiveCourseLevelMission() {
+        outputView.printCourseList();
+        return inputView.inputCourseLevelMission();
+    }
 }

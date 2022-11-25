@@ -15,6 +15,22 @@ public class PairMatchingController {
     }
 
     public void run() {
-        pairMatchingView.receiveSelect();
+        while (true) {
+            Select select = pairMatchingView.receiveSelect();
+            if (select == Select.MATCHING) {
+                pairMatchingView.receiveCourseLevelMission();
+                // 매칭 기능 수행
+            }
+            if (select == Select.INQUIRY) {
+                pairMatchingView.receiveCourseLevelMission();
+                // 조회 기능 수행
+            }
+            if (select == Select.RESET) {
+                // 초기화 기능 수행
+            }
+            if (select == Select.QUIT) {
+                return;
+            }
+        }
     }
 }
