@@ -27,4 +27,8 @@ public class Pair {
     public boolean isMissionMatch(Mission mission) {
         return this.mission == mission;
     }
+
+    public boolean isCourseAndMissionMatch(Course course, Mission mission) {
+        return isCourseMatch(course) && isMissionMatch(mission);
+    }
 }

@@ -21,17 +21,16 @@ public class PairRepository {
 
     public List<Pair> findByCourseAndMission(Course course, Mission mission) {
         return pairs.stream()
-                .filter(pair -> pair.isCourseMatch(course))
-                .filter(pair -> pair.isMissionMatch(mission))
+                .filter(pair -> pair.isCourseAndMissionMatch(course, mission))
                 .collect(Collectors.toList());
     }
 
     public boolean existsByCourseAndMission(Course course, Mission mission) {
         return pairs.stream()
-                .anyMatch(pair -> pair.isCourseMatch(course) && pair.isMissionMatch(mission));
+                .anyMatch(pair -> pair.isCourseAndMissionMatch(course, mission));
     }
 
     public void deleteByCourseAndMission(Course course, Mission mission) {
-        pairs.removeIf(pair -> pair.isCourseMatch(course) && pair.isMissionMatch(mission));
+        pairs.removeIf(pair -> pair.isCourseAndMissionMatch(course, mission));
     }
 }
