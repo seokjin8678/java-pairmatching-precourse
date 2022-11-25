@@ -12,7 +12,7 @@ public class CrewRepository {
         this.crews.addAll(crews);
     }
 
-    public Set<Crew> findAllCrew() {
+    public Set<Crew> findAllCrews() {
         return Set.copyOf(crews);
     }
 }
