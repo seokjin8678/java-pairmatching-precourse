@@ -27,4 +27,12 @@ public enum Mission {
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 해당 미션이 없습니다."));
     }
+
+    public boolean isSameLevel(Level level) {
+        return this.level == level;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
 }

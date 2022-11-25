@@ -1,5 +1,7 @@
 package pairmatching.service;
 
+import static java.util.stream.Collectors.*;
+
 import camp.nextstep.edu.missionutils.Randoms;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import java.util.stream.Collectors;
 import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
 import pairmatching.domain.Mission;
@@ -19,6 +20,7 @@ import pairmatching.repository.CrewRepository;
 import pairmatching.repository.PairRepository;
 
 public class PairMatchingService {
+    public static final int RETRY_COUNT = 3;
 
     private final CrewRepository crewRepository;
     private final PairRepository pairRepository;
@@ -32,7 +34,7 @@ public class PairMatchingService {
         try {
             Set<Crew> crews = Files.list(Path.of("./src/main/resources"))
                     .flatMap(path -> retrieveCrewFile(path).stream())
-                    .collect(Collectors.toSet());
+                    .collect(toSet());
             crewRepository.saveAll(crews);
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,20 +59,32 @@ public class PairMatchingService {
     private Set<Crew> getCrews(Course course, Path path) throws IOException {
         return Files.lines(path)
                 .map(line -> new Crew(course, line))
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     public List<Pair> matchCrew(Course course, Mission mission) {
-        Set<Crew> crews = crewRepository.findByCourse(course);
-        List<String> crewNames = crews.stream()
-                .map(Crew::getName)
-                .collect(Collectors.toList());
-        List<Pair> pairs = makePairs(course, mission, crewNames);
+        if (crewRepository.countByCourse(course) < 2) {
+            return Collections.emptyList();
+        }
+        List<Pair> pairs = makePairs(course, mission);
         pairRepository.saveAll(pairs);
         return pairs;
     }
 
-    private List<Pair> makePairs(Course course, Mission mission, List<String> crewNames) {
+
+    public List<Pair> makePairs(Course course, Mission mission) {
+        List<Pair> sameLevelPairs = pairRepository.findByCourseAndLevel(course, mission.getLevel());
+        for (int i = 0; i < RETRY_COUNT; i++) {
+            List<Pair> pairs = pairMatch(course, mission);
+            if (!checkDuplicatePair(sameLevelPairs, pairs)) {
+                return pairs;
+            }
+        }
+        return Collections.emptyList();
+    }
+
+    private List<Pair> pairMatch(Course course, Mission mission) {
+        List<String> crewNames = getCrewNames(course);
         List<Pair> pairs = new ArrayList<>();
         Queue<String> shuffledCrewsName = new LinkedList<>(Randoms.shuffle(crewNames));
         while (shuffledCrewsName.size() > 0) {
@@ -83,6 +97,24 @@ public class PairMatchingService {
             pairs.add(new Pair(course, mission, crewPair));
         }
         return pairs;
+    }
+
+    private List<String> getCrewNames(Course course) {
+        return crewRepository.findByCourse(course)
+                .stream()
+                .map(Crew::getName)
+                .collect(toList());
+    }
+
+    public boolean checkDuplicatePair(List<Pair> sameLevelPairs, List<Pair> pairs) {
+        for (Pair pair : pairs) {
+            boolean result = sameLevelPairs.stream()
+                    .anyMatch(sameLevelPair -> sameLevelPair.isDuplicate(pair));
+            if (result) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void clearAllPairs() {

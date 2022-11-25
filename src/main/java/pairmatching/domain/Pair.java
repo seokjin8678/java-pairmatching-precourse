@@ -1,7 +1,8 @@
 package pairmatching.domain;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Pair {
     private final Course course;
@@ -17,7 +18,7 @@ public class Pair {
     public String getCrewsName() {
         return crews.stream()
                 .map(Crew::getName)
-                .collect(Collectors.joining(" : "));
+                .collect(joining(" : "));
     }
 
     public boolean isCourseMatch(Course course) {
@@ -30,5 +31,23 @@ public class Pair {
 
     public boolean isCourseAndMissionMatch(Course course, Mission mission) {
         return isCourseMatch(course) && isMissionMatch(mission);
+    }
+
+    public boolean isLevelMatch(Level level) {
+        return mission.isSameLevel(level);
+    }
+
+    public boolean isDuplicate(Pair otherPair) {
+        Crew firstCrew = otherPair.crews.get(0);
+        List<Crew> otherCrews = otherPair.crews.subList(1, otherPair.crews.size());
+        if (!crews.contains(firstCrew)) {
+            return false;
+        }
+        for (Crew otherCrew : otherCrews) {
+            if (crews.contains(otherCrew)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

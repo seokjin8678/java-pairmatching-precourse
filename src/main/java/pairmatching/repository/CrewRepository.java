@@ -41,4 +41,8 @@ public class CrewRepository {
                 .filter(Crew::isFrontEnd)
                 .collect(toSet());
     }
+
+    public long countByCourse(Course course) {
+        return findByCourse(course).size();
+    }
 }

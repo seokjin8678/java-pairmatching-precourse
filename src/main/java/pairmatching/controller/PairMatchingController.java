@@ -1,5 +1,6 @@
 package pairmatching.controller;
 
+import java.util.Collections;
 import java.util.List;
 import pairmatching.domain.Course;
 import pairmatching.domain.Mission;
@@ -70,15 +71,17 @@ public class PairMatchingController {
             pairMatchingService.deletePairByCourseAndMission(dto.getCourse(), dto.getMission());
         }
         List<Pair> pairs = pairMatchingService.matchCrew(dto.getCourse(), dto.getMission());
+        if (pairs == Collections.EMPTY_LIST) {
+            pairMatchingView.printPairMatchFail();
+            return;
+        }
         pairMatchingView.printPairResult(PairResultDto.of(pairs));
     }
 
     private void inquiry() {
-        CourseLevelMissionDto courseLevelMissionDto = pairMatchingView.receiveCourseLevelMission();
+        CourseLevelMissionDto dto = pairMatchingView.receiveCourseLevelMission();
         // 조회 기능 수행
-        Course course = courseLevelMissionDto.getCourse();
-        Mission mission = courseLevelMissionDto.getMission();
-        List<Pair> pairs = pairMatchingService.findPairByCourseAndMission(course, mission);
+        List<Pair> pairs = pairMatchingService.findPairByCourseAndMission(dto.getCourse(), dto.getMission());
         pairMatchingView.printPairResult(PairResultDto.of(pairs));
     }
 

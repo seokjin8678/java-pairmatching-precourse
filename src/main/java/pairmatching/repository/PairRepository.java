@@ -1,10 +1,12 @@
 package pairmatching.repository;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import pairmatching.domain.Course;
+import pairmatching.domain.Level;
 import pairmatching.domain.Mission;
 import pairmatching.domain.Pair;
 
@@ -22,7 +24,7 @@ public class PairRepository {
     public List<Pair> findByCourseAndMission(Course course, Mission mission) {
         return pairs.stream()
                 .filter(pair -> pair.isCourseAndMissionMatch(course, mission))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     public boolean existsByCourseAndMission(Course course, Mission mission) {
@@ -32,5 +34,12 @@ public class PairRepository {
 
     public void deleteByCourseAndMission(Course course, Mission mission) {
         pairs.removeIf(pair -> pair.isCourseAndMissionMatch(course, mission));
+    }
+
+    public List<Pair> findByCourseAndLevel(Course course, Level level) {
+        return pairs.stream()
+                .filter(pair -> pair.isCourseMatch(course))
+                .filter(pair -> pair.isLevelMatch(level))
+                .collect(toList());
     }
 }

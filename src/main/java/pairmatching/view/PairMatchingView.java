@@ -62,4 +62,8 @@ public class PairMatchingView {
             }
         }
     }
+
+    public void printPairMatchFail() {
+        outputView.printPairMatchFail();
+    }
 }
