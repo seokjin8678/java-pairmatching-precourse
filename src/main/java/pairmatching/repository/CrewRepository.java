@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import pairmatching.domain.Crew;
 
-public class PairMatchingRepository {
+public class CrewRepository {
     private final Set<Crew> crews = new HashSet<>();
 
     public void saveAllCrews(Collection<Crew> crews) {

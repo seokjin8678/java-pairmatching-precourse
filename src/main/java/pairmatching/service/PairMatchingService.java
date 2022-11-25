@@ -8,14 +8,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
-import pairmatching.repository.PairMatchingRepository;
+import pairmatching.repository.CrewRepository;
+import pairmatching.repository.PairRepository;
 
 public class PairMatchingService {
 
-    private final PairMatchingRepository pairMatchingRepository;
+    private final CrewRepository crewRepository;
+    private final PairRepository pairRepository;
 
-    public PairMatchingService(PairMatchingRepository pairMatchingRepository) {
-        this.pairMatchingRepository = pairMatchingRepository;
+    public PairMatchingService(CrewRepository crewRepository, PairRepository pairRepository) {
+        this.crewRepository = crewRepository;
+        this.pairRepository = pairRepository;
     }
 
     public void saveAllCrewsFromFile() {
@@ -23,7 +26,7 @@ public class PairMatchingService {
             Set<Crew> crews = Files.list(Path.of("./src/main/resources"))
                     .flatMap(path -> retrieveCrewFile(path).stream())
                     .collect(Collectors.toSet());
-            pairMatchingRepository.saveAllCrews(crews);
+            crewRepository.saveAllCrews(crews);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,5 +51,9 @@ public class PairMatchingService {
         return Files.lines(path)
                 .map(line -> new Crew(course, line))
                 .collect(Collectors.toSet());
+    }
+
+    public void matchCrew() {
+
     }
 }
