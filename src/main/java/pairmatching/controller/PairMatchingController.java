@@ -39,10 +39,16 @@ public class PairMatchingController {
 
     private ExitFlag routine() {
         Select select = pairMatchingView.receiveSelect();
+        return selectMenu(select);
+    }
+
+    private ExitFlag selectMenu(Select select) {
         if (select == Select.MATCHING) {
+            pairMatchingView.printCourseList();
             matching();
         }
         if (select == Select.INQUIRY) {
+            pairMatchingView.printCourseList();
             inquiry();
         }
         if (select == Select.RESET) {
@@ -55,21 +61,16 @@ public class PairMatchingController {
     }
 
     private void matching() {
-        CourseLevelMissionDto courseLevelMissionDto = pairMatchingView.receiveCourseLevelMission();
-        Course course = courseLevelMissionDto.getCourse();
-        Mission mission = courseLevelMissionDto.getMission();
-        // 매칭 기능 수행
-        if (pairMatchingService.isAlreadyMatch(course, mission)) {
-            YesOrNo yesOrNo = pairMatchingView.receiveYesOrNo();
-            if (yesOrNo == YesOrNo.YES) {
-                pairMatchingService.deletePairByCourseAndMission(course, mission);
-                List<Pair> pairs = pairMatchingService.matchCrew(course, mission);
-                pairMatchingView.printPairResult(PairResultDto.of(pairs));
+        CourseLevelMissionDto dto = pairMatchingView.receiveCourseLevelMission();
+        if (pairMatchingService.isAlreadyMatch(dto.getCourse(), dto.getMission())) {
+            if (pairMatchingView.receiveYesOrNo() == YesOrNo.NO) {
+                matching();
+                return;
             }
-        } else {
-            List<Pair> pairs = pairMatchingService.matchCrew(course, mission);
-            pairMatchingView.printPairResult(PairResultDto.of(pairs));
+            pairMatchingService.deletePairByCourseAndMission(dto.getCourse(), dto.getMission());
         }
+        List<Pair> pairs = pairMatchingService.matchCrew(dto.getCourse(), dto.getMission());
+        pairMatchingView.printPairResult(PairResultDto.of(pairs));
     }
 
     private void inquiry() {

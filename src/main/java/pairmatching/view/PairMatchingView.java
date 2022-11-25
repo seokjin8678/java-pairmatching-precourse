@@ -25,10 +25,14 @@ public class PairMatchingView {
         }
     }
 
+    public void printCourseList() {
+        outputView.printCourseList();
+    }
+
     public CourseLevelMissionDto receiveCourseLevelMission() {
         while (true) {
             try {
-                outputView.printCourseList();
+                outputView.printSelectCourseLevelMission();
                 return inputView.inputCourseLevelMission();
             } catch (IllegalArgumentException e) {
                 outputView.printException(e);
