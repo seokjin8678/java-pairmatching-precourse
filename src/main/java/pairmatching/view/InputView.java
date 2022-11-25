@@ -2,6 +2,7 @@ package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import pairmatching.controller.Select;
+import pairmatching.dto.CourseLevelMissionDto;
 
 public class InputView {
     public Select inputSelect() {
@@ -9,7 +10,8 @@ public class InputView {
         return Select.of(input);
     }
 
-    public String inputCourseLevelMission() {
-        return Console.readLine();
+    public CourseLevelMissionDto inputCourseLevelMission() {
+        String input = Console.readLine();
+        return CourseLevelMissionDto.of(input);
     }
 }
