@@ -15,6 +15,6 @@ public class PairMatchingController {
     }
 
     public void run() {
-
+        pairMatchingView.receiveSelect();
     }
 }
