@@ -20,7 +20,10 @@ import pairmatching.repository.CrewRepository;
 import pairmatching.repository.PairRepository;
 
 public class PairMatchingService {
-    public static final int RETRY_COUNT = 3;
+    private static final int RETRY_COUNT = 3;
+    private static final String CREWS_FILE_SRC = "./src/main/resources";
+    private static final String BACKEND_CREWS_FILE_NAME = "backend-crew.md";
+    private static final String FRONTEND_CREWS_FILE_NAME = "frontend-crew.md";
 
     private final CrewRepository crewRepository;
     private final PairRepository pairRepository;
@@ -32,7 +35,7 @@ public class PairMatchingService {
 
     public void saveAllCrewsFromFile() {
         try {
-            Set<Crew> crews = Files.list(Path.of("./src/main/resources"))
+            Set<Crew> crews = Files.list(Path.of(CREWS_FILE_SRC))
                     .flatMap(path -> retrieveCrewFile(path).stream())
                     .collect(toSet());
             crewRepository.saveAll(crews);
@@ -44,10 +47,10 @@ public class PairMatchingService {
     private Set<Crew> retrieveCrewFile(Path path) {
         String fileName = path.getFileName().toString();
         try {
-            if (fileName.equals("backend-crew.md")) {
+            if (fileName.equals(BACKEND_CREWS_FILE_NAME)) {
                 return getCrews(Course.BACKEND, path);
             }
-            if (fileName.equals("frontend-crew.md")) {
+            if (fileName.equals(FRONTEND_CREWS_FILE_NAME)) {
                 return getCrews(Course.FRONTEND, path);
             }
         } catch (IOException e) {
