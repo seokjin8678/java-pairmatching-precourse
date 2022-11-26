@@ -79,7 +79,7 @@ public class PairMatchingService {
         List<Pair> sameLevelPairs = pairRepository.findByCourseAndLevel(course, mission.getLevel());
         for (int i = 0; i < RETRY_COUNT; i++) {
             List<Pair> pairs = pairMatch(course, mission);
-            if (!checkDuplicatePair(sameLevelPairs, pairs)) {
+            if (!checkSameLevelPairsContain(sameLevelPairs, pairs)) {
                 return pairs;
             }
         }
@@ -109,7 +109,7 @@ public class PairMatchingService {
                 .collect(toList());
     }
 
-    private boolean checkDuplicatePair(List<Pair> sameLevelPairs, List<Pair> pairs) {
+    private boolean checkSameLevelPairsContain(List<Pair> sameLevelPairs, List<Pair> pairs) {
         for (Pair pair : pairs) {
             boolean result = sameLevelPairs.stream()
                     .anyMatch(sameLevelPair -> sameLevelPair.isDuplicate(pair));
