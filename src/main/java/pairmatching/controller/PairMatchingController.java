@@ -2,8 +2,6 @@ package pairmatching.controller;
 
 import java.util.Collections;
 import java.util.List;
-import pairmatching.domain.Course;
-import pairmatching.domain.Mission;
 import pairmatching.domain.Pair;
 import pairmatching.dto.CourseLevelMissionDto;
 import pairmatching.dto.PairResultDto;
