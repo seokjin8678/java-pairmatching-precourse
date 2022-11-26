@@ -42,4 +42,8 @@ public class PairRepository {
                 .filter(pair -> pair.isLevelMatch(level))
                 .collect(toList());
     }
+
+    public List<Pair> findAll() {
+        return List.copyOf(pairs);
+    }
 }
