@@ -39,10 +39,10 @@ public class Pair {
 
     public boolean isDuplicate(Pair otherPair) {
         Crew firstCrew = otherPair.crews.get(0);
-        List<Crew> otherCrews = otherPair.crews.subList(1, otherPair.crews.size());
         if (!crews.contains(firstCrew)) {
             return false;
         }
+        List<Crew> otherCrews = otherPair.crews.subList(1, otherPair.crews.size());
         for (Crew otherCrew : otherCrews) {
             if (crews.contains(otherCrew)) {
                 return true;
